@@ -1,5 +1,7 @@
 console.log('its alive!')
 const message = document.querySelector('#message')
+
+
 const addMovie = (e)=>{
     event.preventDefault()
 const inputfield = document.querySelector('input')
@@ -16,21 +18,26 @@ movie.appendChild(deleteBtn)
 deleteBtn.addEventListener('click', deleteMovie)
 inputfield.value=''
 }
-
+const revealMessage = () => {
+    message.classList.remove('hide')
+    setTimeout(()=>{
+        message.classList.add('hide')
+    },1000)
+}
 const deleteMovie = (e)=>{
     event.target.parentNode.remove()
-    message.textContent =  `Deleted`
+    message.textContent =  `${event.target.parentElement.childNodes[0].textContent} Deleted`
+    revealMessage()
 }
 
 const crossOff = (e)=>{
     event.target.classList.toggle('checked')
     if (event.target.classList.contains('checked')){
-message.textContent = `was the movie good?`
+    message.textContent = `${event.target.textContent} Watched`
     } else {
-        message.textContent = `movie readded`
+        message.textContent = `${event.target.textContent} reAdded`
     }
+    revealMessage()
 }
-let Btn = document.querySelector('button')
-Btn.addEventListener('click', addMovie)
 
-
+document.querySelector('form').addEventListener('submit', addMovie)
